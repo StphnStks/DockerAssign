@@ -1,0 +1,22 @@
+#Dockerfile for Flask application
+#Based on ubuntu_ssh
+
+FROM shykes/pybuilder
+
+RUN apt-get update
+RUN apt-get install -y python2.7
+
+RUN apt-get install -y python-pip
+
+RUN apt-get install -y --fix-missing python2.7-dev libpq-dev 
+
+#Run App
+ADD /application /application
+WORKDIR /application
+#Get pip to download and install requirements:
+RUN pip install -r /application/requirements.txt
+
+#Expose port
+EXPOSE 5000
+
+CMD python studentsAPI.py
